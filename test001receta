@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Receta</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url('path/to/background/image.jpg');
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      p {
+        margin-bottom: 10px;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 10px 0;
+      }
+      .label {
+        flex-basis: 120px;
+        font-weight: bold;
+      }
+      .value {
+        flex-grow: 1;
+      }
+      .signature {
+        margin-top: 50px;
+        text-align: center;
+      }
+      .signature img {
+        max-width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Receta médica</h1>
+      <div class="row">
+        <div class="label">Fecha:</div>
+        <div class="value">{{Fecha}}</div>
+      </div>
+      <div class="row">
+        <div class="label">Paciente:</div>
+        <div class="value">{{Paciente}}</div>
+      </div>
+      <div class="row">
+        <div class="label">Tratamiento:</div>
+        <div class="value">{{Tratamiento}}</div>
+      </div>
+      <div class="row">
+        <div class="label">Recomendaciones:</div>
+        <div class="value">{{Recomendaciones}}</div>
+      </div>
+      <div class="signature">
+        <img src="path/to/signature/image.jpg" alt="Firma del médico">
+        <div>Firma: {{Doctor.nombre completo}}</div>
+      </div>
+    </div>
+  </body>
+</html>
