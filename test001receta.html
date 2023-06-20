@@ -4,28 +4,15 @@
     <meta charset="utf-8">
     <title>Informe PDF de Grist</title>
     <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
   </head>
   <body>
     <button id="generar-pdf">Generar PDF</button>
     <script>
       grist.ready();
       grist.onTableLoad(function() {
-        var table = grist.tables.table1;
-        var columns = table.columns();
-        var rows = table.filter();
-        var data = rows.map(function(row) {
-          return columns.map(function(column) {
-            return row[column];
-          });
-        });
+        var tableId = grist.tables.table1.id();
         document.getElementById('generar-pdf').addEventListener('click', function() {
-          var doc = new jsPDF();
-          doc.autoTable({
-            head: [columns.map(function(column) { return column.label; })],
-            body: data
-          });
-          doc.save('informe.pdf');
+          window.open('https://docs.getgrist.com/export/' + tableId + '.pdf');
         });
       });
     </script>
