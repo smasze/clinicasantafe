@@ -4,15 +4,48 @@
     <meta charset="utf-8">
     <title>Informe PDF de Grist</title>
     <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.2/vfs_fonts.js"></script>
   </head>
   <body>
     <button id="generar-pdf">Generar PDF</button>
     <script>
       grist.ready();
       grist.onTableLoad(function() {
-        var tableId = grist.tables.table1.id();
+        var table = grist.tables.table1;
+        var columns = table.columns();
+        var rows = table.filter();
+        var data = rows.map(function(row) {
+          return columns.map(function(column) {
+            return row[column];
+          });
+        });
         document.getElementById('generar-pdf').addEventListener('click', function() {
-          window.open('https://docs.getgrist.com/export/' + tableId + '.pdf');
+          var docDefinition = {
+            content: [
+              { text: 'Informe de Grist', style: 'header' },
+              { text: 'Fecha: ' + new Date().toLocaleDateString(), alignment: 'right' },
+              '\n',
+              {
+                table: {
+                  headerRows: 1,
+                  widths: columns.map(function(column) { return 'auto'; }),
+                  body: [
+                    columns.map(function(column) { return column.label; }),
+                    ...data
+                  ]
+                }
+              }
+            ],
+            styles: {
+              header: {
+                fontSize: 18,
+                bold: true,
+                margin: [0, 0, 0, 10]
+              }
+            }
+          };
+          pdfMake.createPdf(docDefinition).download('informe.pdf');
         });
       });
     </script>
